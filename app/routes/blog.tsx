@@ -1,6 +1,6 @@
 import styles from 'highlight.js/styles/base16/atelier-plateau-light.css';
 import { Outlet, type LinksFunction } from 'remix';
-
+import NavBackFC from '~views/blog/components/NavBack';
 export const links: LinksFunction = () => [
     {
         rel: 'stylesheet',
@@ -10,10 +10,13 @@ export const links: LinksFunction = () => [
 
 export default function Blog() {
     return (
-        <div className='flex justify-center bg-post h-full'>
-            <div className='prose lg:prose-xl py-10'>
-                <Outlet />
+        <>
+            <NavBackFC />
+            <div className='flex justify-center bg-post h-full'>
+                <div className='prose lg:prose-xl py-10'>
+                    <Outlet />
+                </div>
             </div>
-        </div>
+        </>
     );
 }

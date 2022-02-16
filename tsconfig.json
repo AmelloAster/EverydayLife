@@ -13,6 +13,7 @@
     "paths": {
       "~/*": ["./app/*"],
       "~assets/*": ["./assets/*"],
+      "~views/*": ["./app/views/*"],
     },
 
     // Remix takes care of building everything in `remix build`.

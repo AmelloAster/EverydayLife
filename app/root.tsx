@@ -32,6 +32,7 @@ export default function App() {
                     name='viewport'
                     content='width=device-width,initial-scale=1'
                 />
+                <script src='//at.alicdn.com/t/font_3187751_9ebjorplk9w.js'></script>
                 <Meta />
                 <Links />
             </head>
