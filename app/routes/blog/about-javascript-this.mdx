@@ -3,13 +3,73 @@ title: 关于 JavaScript this 的理解
 date: Feb,16 2022
 meta:
   title: 关于 JavaScript this 的理解
-  description: xxxxx
+  description: 理解 this 的概念
   tag: JS
   date: Feb,16 2022
 ---
 
-## Hello world!
+import { MarkFC } from '~/components/mark/Mark.tsx'
+import { PostTitleFC, PostTagFC } from '~/components/post'
+
+<PostTagFC type={attributes.meta.tag} date={attributes.meta.date}/>
+
+<PostTitleFC>{attributes.title}</PostTitleFC>
+
+<p><MarkFC>this</MarkFC> 是 JavaScript 中的一个关键字，通常情况下，他指向最后调用他的对象，但是由于运行环境的不同，会存在一些细节上的变化</p>
+
+> 浏览器环境：
+> 非严格模式和严格模式下，全局环境中的 this，都指向 winodw，
+> 但是当 this 包裹在函数中，严格模式下，this 指向 undefined，
+> 非严格模式下，this 依然指向 window
+
+> Node 环境：
+> 非严格模式和严格模式下，全局环境中的 this，都指向一个空对象，
+> 但是当 this 包裹在函数中，严格模式下，this 指向 undefined，
+> 非严格模式下，this 指向 globa
+
+> 箭头函数：
+> 箭头函数不会创建自己的 this,它只会从自己的作用域链的上一层继承 this，
+> 如果是一个 Object 中的箭头函数，this 永远指向 winodw，
+> 如果是一个 function 里的箭头函数，this 指向该函数的外层作用域
+
+在绝大多数情况下，函数的调用方式决定了 this 的值（运行时绑定）。this 不能在执行期间被赋值，并且在每次函数被调用时 this 的值也可能会不同。ES5 引入了 bind 方法来设置函数的 this 值，而不用考虑函数如何被调用的。ES2015 引入了箭头函数，箭头函数不提供自身的 this 绑定（this 的值将保持为闭合词法上下文的值）。
+
+<h4>this 题目(初级)</h4>
 
 ```js
-console.log(1111);
+var a = 1;
+var obj = {
+  a: 2,
+  showA: () => {
+    console.log(this.a);
+  }
+};
+obj.showA(); // 会打印什么？为什么？
+/*
+由于箭头函数的原因，在 object 中，箭头函数的 this 永远指向 window，
+所以此处的 this = window，this.a = window.a
+ */
+// 那么如何让 this.a 指向正确呢？
+obj = {
+  a: 2,
+  showA: function () {
+    console.log(this.a);
+  }
+};
+/*
+将箭头函数改为匿名函数即可，this 的指向就会依照原有规则，指向最后调用他的人，
+也就是 window.obj.showA 最后调用人是 obj
+ */
+let a = 1;
+let obj = {
+  a: 2,
+  showA: () => {
+    console.log(this.a);
+  }
+};
+obj.showA(); // 如果我将 var 改为 let 会打印什么？为什么？
+/*
+会打印 undefined，因为 let 存在局部作用域，其定义的变量不会绑定在全局作用域
+所以 window.a 不存在
+*/
 ```

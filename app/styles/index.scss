@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
     width: 100%;
@@ -26,4 +30,9 @@ body {
 .icon-svg {
     width: 1rem;
     height: 1rem;
+}
+
+.prose :where(blockquote):not(:where([class~='not-prose'] *)) {
+    background-color: #dce6ed;
+    border-radius: 3px;
 }

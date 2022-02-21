@@ -15,12 +15,12 @@ export const DeveloperInfoFC = () => {
                     <p className='text-6xl leading-relaxed text-show-rgb'>
                         {randomQuotations.content}
                     </p>
-                    <p className='text-3xl text-right'>
+                    <p className='text-3xl text-right text-slate-300'>
                         {randomQuotations.original}
                     </p>
                 </div>
                 <div className='mt-16 text-2xl text-slate-500'>
-                    Front-end developer
+                    Front-end developer：性空山
                 </div>
             </div>
         </div>
