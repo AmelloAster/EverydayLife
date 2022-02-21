@@ -1,4 +1,6 @@
-export const Quotations: { content: string; original: string }[] = [
+import type { Home } from './Home.type';
+
+export const quotationsList: Home.QuotationsListItem[] = [
     {
         content: '不要哀求，学会争取，若是如此，终有所获',
         original: '————《交响诗篇》',
