@@ -991,10 +991,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 20rem;
 }
 
-.w-2\/3 {
-  width: 66.666667%;
-}
-
 .w-3\/4 {
   width: 75%;
 }
@@ -1057,11 +1053,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-post {
   --tw-bg-opacity: 1;
   background-color: rgb(231 232 237 / var(--tw-bg-opacity));
-}
-
-.bg-yellow-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 249 195 / var(--tw-bg-opacity));
 }
 
 .fill-current {
@@ -1172,11 +1163,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-stone-300 {
   --tw-text-opacity: 1;
   color: rgb(214 211 209 / var(--tw-text-opacity));
-}
-
-.text-orange-800 {
-  --tw-text-opacity: 1;
-  color: rgb(154 52 18 / var(--tw-text-opacity));
 }
 
 .opacity-100 {

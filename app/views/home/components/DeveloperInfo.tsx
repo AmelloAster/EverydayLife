@@ -11,7 +11,7 @@ export const DeveloperInfoFC = () => {
                 <img src={Avatar} alt='avatar' />
             </div>
             <div>
-                <div className='text-white w-2/3'>
+                <div className='text-white w-3/4'>
                     <p className='text-6xl leading-relaxed text-show-rgb'>
                         {randomQuotations.content}
                     </p>

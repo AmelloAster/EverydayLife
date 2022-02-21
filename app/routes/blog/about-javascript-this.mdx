@@ -34,7 +34,7 @@ import { PostTitleFC, PostTagFC } from '~/components/post'
 
 在绝大多数情况下，函数的调用方式决定了 this 的值（运行时绑定）。this 不能在执行期间被赋值，并且在每次函数被调用时 this 的值也可能会不同。ES5 引入了 bind 方法来设置函数的 this 值，而不用考虑函数如何被调用的。ES2015 引入了箭头函数，箭头函数不提供自身的 this 绑定（this 的值将保持为闭合词法上下文的值）。
 
-<h4>this 题目(初级)</h4>
+<h4>this 指向(初级)</h4>
 
 ```js
 var a = 1;
@@ -57,8 +57,8 @@ obj = {
   }
 };
 /*
-将箭头函数改为匿名函数即可，this 的指向就会依照原有规则，指向最后调用他的人，
-也就是 window.obj.showA 最后调用人是 obj
+将箭头函数改为匿名函数即可，this 的指向就会依照原有规则，
+指向最后调用他的人，也就是 window.obj.showA 最后调用人是 obj
  */
 let a = 1;
 let obj = {
@@ -69,7 +69,82 @@ let obj = {
 };
 obj.showA(); // 如果我将 var 改为 let 会打印什么？为什么？
 /*
-会打印 undefined，因为 let 存在局部作用域，其定义的变量不会绑定在全局作用域
-所以 window.a 不存在
+会打印 undefined，因为 let 存在局部作用域，
+其定义的变量不会绑定在全局作用域，所以 window.a 不存在
 */
+
+let a = 1;
+let obj = {
+  a: 2,
+  showA: function () {
+    console.log(this.a);
+  }
+};
+let obj1 = {
+  a: 3,
+};
+// 如果我希望 obj.showA() 打印的是 Obj1.a 该怎么做？
+obj.showA.call(obj1);
+obj.showA.apply(obj1);
 ```
+
+<h4>实现 call, apply, bind 题目(中级)</h4>
+
+```js
+// call
+1. 判断当前的 this  是否为函数，防止 Function.prototype.myCall() 直接调用
+2. context 为可选参数，如果不传的话默认上下文为 window
+3. 为 context 创建一个 Symbol（保证不会重名）属性，将当前函数赋值给这个属性
+4. 处理参数，传入第一个参数后的其余参数
+4. 调用函数后即删除该 Symbol 属性
+
+Function.prototype.myCall = function (context = window, ...args) {
+  if (this === Function.prototype) {
+    // 用于防止 Function.prototype.myCall() 直接调用
+    throw new Error("this is not a function");
+  }
+  // 当前要绑定的目标 obj.showA.myCall(context)
+  context = context || window;
+  const fn = Symbol();
+  // 将 showA 赋予目标对象 context.showA
+  context[fn] = this;
+  // 要传入运行方法的参数 context.showA(...args)
+  const result = context[fn](...args);
+  delete context[fn]; // 删除 this
+  return result;
+}
+
+// apply
+1. 判断当前的 this  是否为函数，防止 Function.prototype.myCall() 直接调用
+2. context 为可选参数，如果不传的话默认上下文为 window
+3. 为 context 创建一个 Symbol（保证不会重名）属性，将当前函数赋值给这个属性
+4. apply 接受的是一个数组，需确保参数类型正确
+5. 调用函数后即删除该 Symbol 属性
+
+Function.prototype.myApply = function (context = window, args) {
+  if (this === Function.prototype) {
+    // 用于防止 Function.prototype.myCall() 直接调用
+    throw new Error("this is not a function");
+  }
+  // 当前要绑定的目标 obj.showA.myCall(context)
+  context = context || window;
+  const fn = Symbol();
+  // 将 showA 赋予目标对象 context.showA
+  context[fn] = this;
+  // 要传入运行方法的参数 context.showA(args)
+  let result;
+  if (Array.isArray(args)) {
+    result = context[fn](...args);
+  }
+  else {
+    result = context[fn]();
+  }
+  delete context[fn]; // 删除 this
+  return result;
+}
+```
+
+<h4>实现 new 关键字 题目(高级)</h4>
+
+-   [手动实现 call、apply、bind](http://www.conardli.top/docs/JavaScript/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind.html#%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0call)
+-   [this - MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this)
