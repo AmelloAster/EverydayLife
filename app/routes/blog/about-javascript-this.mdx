@@ -8,14 +8,11 @@ meta:
   date: Feb,16 2022
 ---
 
-import { MarkFC } from '~/components/mark/Mark.tsx'
-import { PostTitleFC, PostTagFC } from '~/components/post'
+import { PostHeaderFC } from '~/components/post'
 
-<PostTagFC type={attributes.meta.tag} date={attributes.meta.date}/>
+<PostHeaderFC title={attributes.title} tag={attributes.meta.tag} date={attributes.meta.date}/>
 
-<PostTitleFC>{attributes.title}</PostTitleFC>
-
-<p><MarkFC>this</MarkFC> 是 JavaScript 中的一个关键字，通常情况下，他指向最后调用他的对象，但是由于运行环境的不同，会存在一些细节上的变化</p>
+<p><code>this</code> 是 JavaScript 中的一个关键字，通常情况下，他指向最后调用他的对象，但是由于运行环境的不同，会存在一些细节上的变化</p>
 
 > 浏览器环境：
 > 非严格模式和严格模式下，全局环境中的 this，都指向 winodw，
@@ -145,6 +142,18 @@ Function.prototype.myApply = function (context = window, args) {
 ```
 
 <h4>实现 new 关键字 题目(高级)</h4>
+```js
+1.创建一个空的简单 JavaScript 对象（即{}）；
+2.为步骤 1 新创建的对象添加属性__proto__，将该属性链接至构造函数的原型对象 ；
+3.将步骤 1 新创建的对象作为this的上下文 ；
+4.如果该函数没有返回对象，则返回this。
+function myNew(fn, ...args) {
+  const obj = Object.create(fn.prototype);
+  let res = fn.call(obj, ...args);
+  return res instanceof Object ? res : obj;
+}
+```
 
 -   [手动实现 call、apply、bind](http://www.conardli.top/docs/JavaScript/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind.html#%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0call)
 -   [this - MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this)
+-   [new 运算符 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new)

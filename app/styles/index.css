@@ -23,6 +23,9 @@ body {
 .tag-REACT {
   color: #4a8e9c;
 }
+.tag-CODE {
+  color: #569c4a;
+}
 
 .icon-svg {
   width: 1rem;
@@ -32,6 +35,7 @@ body {
 .prose :where(blockquote):not(:where([class~="not-prose"] *)) {
   background-color: #dce6ed;
   border-radius: 3px;
+  border-left-color: #d4c8c8;
 }
 
 /*# sourceMappingURL=index.css.map */

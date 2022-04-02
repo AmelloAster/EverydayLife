@@ -2,7 +2,6 @@ import { useLoaderData, Link } from 'remix';
 
 export const PostListFC = () => {
     const posts = useLoaderData();
-
     return (
         <div className='p-8'>
             <div className='grid grid-cols-4'>

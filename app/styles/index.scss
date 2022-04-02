@@ -25,6 +25,9 @@ body {
     &-REACT {
         color: #4a8e9c;
     }
+    &-CODE {
+        color: #569c4a;
+    }
 }
 
 .icon-svg {
@@ -35,4 +38,5 @@ body {
 .prose :where(blockquote):not(:where([class~='not-prose'] *)) {
     background-color: #dce6ed;
     border-radius: 3px;
+    border-left-color: #d4c8c8;
 }

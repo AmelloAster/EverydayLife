@@ -1,0 +1,32 @@
+---
+title: 数组遍历的方法
+date: Mar,4 2022
+meta:
+  title: 数组遍历的方法
+  description: 关于数组的遍历
+  tag: JS
+  date: Mar,4 2022
+---
+
+import { PostHeaderFC } from '~/components/post'
+
+<PostHeaderFC title={attributes.title} tag={attributes.meta.tag} date={attributes.meta.date}/>
+
+### Array.prototype.map()
+
+<code>map()</code> 方法创建一个新数组，其结果是该数组中的每个元素是调用一次提供的函数后的返回值。
+#### 语法
+```JS
+const new_arr = arr.map(function callback(currentValue, index, array) {
+  // 返回新数组
+  return currentValue;
+}, [, thisArg]);
+```
+#### 参数
+- `callback`: 回调函数
+- `currentValue`: 当前元素的值
+- `index`: 当前元素的索引
+- `array`: 原数组
+- `thisArg`: 可选，作为回调函数的this对象
+
+#### 返回值
